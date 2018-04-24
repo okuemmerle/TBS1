@@ -1,58 +1,82 @@
-__version__ = "1.0"                         #Verwaltungsinfos
+__version__ = "1.1"                         #Verwaltungsinfos
 __author__ = "Oliver Kümmerle"
 
-class AndGate:                              #Klassendefinition
+class LogFunc:                              #Klassendefinition
     def __init__(self):                     #Attribute definieren
-        self.Input0 = False
-        self.Input1 = False
-        self.Output = False
-        self.Name = "YaAndGate"
-
-    def execute(self):
-        self.Output = self.Input0 and self.Input1
+        self.__Input0 = False
+        self.__Input1 = False
+        self._Output = False
+        self._Name = ""
 
     def show(self):
-        print("Output = " + str(self.Output))
+        print("Output = " + str(self._Output))
 
     def __str__(self):
-        return "AndGate Name = " + str(self.Name)
+        return "Name = " + str(self._Name)
 
     def setInput0(self, value):
-        self.Input0 = value
+        self.__Input0 = value
 
     def setInput1(self, value):
-        self.Input1 = value
+        self.__Input1 = value
 
-class OrGate:                               #Klassendefinition
-    def __init__(self):                     #Attribute definieren
-        self.Input0 = False
-        self.Input1 = False
-        self.Output = False
-        self.Name = "YaOrGate"
+    def getInput0(self):
+        return self.__Input0
+
+    def getInput1(self):
+        return self.__Input1
+
+class AndGate(LogFunc):                              #Klassendefinition
+    def __init__(self):                             #Attribute definieren
+        self._Name = "YaAndGate"
+    def execute(self):
+        self._Output = self.getInput0() and self.getInput1()
+
+class OrGate(LogFunc):                               #Klassendefinition
+    def __init__(self):                             #Attribute definieren
+        self._Name = "YaOrGate"
 
     def execute(self):
-        self.Output = self.Input0 or self.Input1
+        self._Output = self.getInput0() or self.getInput1()
 
-    def show(self):
-        print("Output = " + str(self.Output))
+class XOrGate(LogFunc):                               #Klassendefinition
+    def __init__(self):                             #Attribute definieren
+        self._Name = "YaXOrGate"
 
-    def __str__(self):
-        return "OrGate Name = " + str(self.Name)
+    def execute(self):
+        self._Output = self.getInput0() != self.getInput1()
 
-    def setInput0(self, value):
-        self.Input0 = value
+class NAndGate(AndGate):                               #Klassendefinition
+    def __init__(self):                             #Attribute definieren
+        self._Name = "YaNAndGate"
 
-    def setInput1(self, value):
-        self.Input1 = value
+    def execute(self):
+        self._Output = not(self.getInput0() and self.getInput1())
 
-#Erstellung einer Instanz
+
+#Erstellung jeweils einer Instanz
 myAndGate = AndGate()
 myOrGate = OrGate()
+myXOrGate = XOrGate()
+myNAndGate = NAndGate()
 
 #Aufruf der Methoden
+myAndGate.setInput0(True)
+myAndGate.setInput1(True)
 myAndGate.execute()
 myAndGate.show()
+
+myOrGate.setInput0(True)
+myOrGate.setInput1(True)
 myOrGate.execute()
-myOrGate.show
-print(str(myAndGate))
-print(str(myOrGate))
+myOrGate.show()
+
+myXOrGate.setInput0(True)
+myXOrGate.setInput1(True)
+myXOrGate.execute()
+myXOrGate.show()
+
+myNAndGate.setInput0(True)
+myNAndGate.setInput1(False)
+myNAndGate.execute()
+myNAndGate.show()
