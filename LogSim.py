@@ -317,45 +317,53 @@ class AchtBitAdder(LogFunc):
         #setzen des ersten Bits
         self._set_output(8, self.__Adders[0].get_output(0))
 
-        self.__Adders[1].set_input(0, self.__Adders[0].get_output(1))
-        self.__Adders[1].set_input(1, self.get_input(14))
-        self.__Adders[1].set_input(2, self.get_input(6))
-        self.__Adders[1].execute()
-        self._set_output(7, self.__Adders[1].get_output(0))
+        countForOutput = 7
+        countForFirstNumber = 14
+        countForSecondNumber = 6
+        for i in range(1,8):
+            self.__Adders[i].set_input(0, self.__Adders[i-1].get_output(1))
+            self.__Adders[i].set_input(1, self.get_input(countForFirstNumber))
+            self.__Adders[i].set_input(2, self.get_input(countForSecondNumber))
+            self.__Adders[i].execute()
+            self._set_output(countForOutput, self.__Adders[i].get_output(0))
+            countForFirstNumber = countForFirstNumber - 1
+            countForSecondNumber = countForSecondNumber - 1
+            countForOutput = countForOutput - 1
+        
+        #Alternativ SPaghetti Code
+        #self.__Adders[2].set_input(0, self.__Adders[1].get_output(1))
+        #self.__Adders[2].set_input(1, self.get_input(13))
+        #self.__Adders[2].set_input(2, self.get_input(5))
+        #self.__Adders[2].execute()
+        #self._set_output(6, self.__Adders[2].get_output(0))
 
-        self.__Adders[2].set_input(0, self.__Adders[1].get_output(1))
-        self.__Adders[2].set_input(1, self.get_input(13))
-        self.__Adders[2].set_input(2, self.get_input(5))
-        self.__Adders[2].execute()
-        self._set_output(6, self.__Adders[2].get_output(0))
+        #self.__Adders[3].set_input(0, self.__Adders[2].get_output(1))
+        #self.__Adders[3].set_input(1, self.get_input(12))
+        #self.__Adders[3].set_input(2, self.get_input(4))
+        #self.__Adders[3].execute()
+        #self._set_output(5, self.__Adders[3].get_output(0))
 
-        self.__Adders[3].set_input(0, self.__Adders[2].get_output(1))
-        self.__Adders[3].set_input(1, self.get_input(12))
-        self.__Adders[3].set_input(2, self.get_input(4))
-        self.__Adders[3].execute()
-        self._set_output(5, self.__Adders[3].get_output(0))
+        #self.__Adders[4].set_input(0, self.__Adders[3].get_output(1))
+        #self.__Adders[4].set_input(1, self.get_input(11))
+        #self.__Adders[4].set_input(2, self.get_input(3))
+        #self.__Adders[4].execute()
+        #self._set_output(4, self.__Adders[4].get_output(0))
 
-        self.__Adders[4].set_input(0, self.__Adders[3].get_output(1))
-        self.__Adders[4].set_input(1, self.get_input(11))
-        self.__Adders[4].set_input(2, self.get_input(3))
-        self.__Adders[4].execute()
-        self._set_output(4, self.__Adders[4].get_output(0))
+        #self.__Adders[5].set_input(0, self.__Adders[4].get_output(1))
+        #self.__Adders[5].set_input(1, self.get_input(10))
+        #self.__Adders[5].set_input(2, self.get_input(2))
+        #self.__Adders[5].execute()
+        #self._set_output(3, self.__Adders[5].get_output(0))
 
-        self.__Adders[5].set_input(0, self.__Adders[4].get_output(1))
-        self.__Adders[5].set_input(1, self.get_input(10))
-        self.__Adders[5].set_input(2, self.get_input(2))
-        self.__Adders[5].execute()
-        self._set_output(3, self.__Adders[5].get_output(0))
+        #self.__Adders[6].set_input(0, self.__Adders[5].get_output(1))
+        #self.__Adders[6].set_input(1, self.get_input(9))
+        #self.__Adders[6].set_input(2, self.get_input(1))
+        #self.__Adders[6].execute()
+        #self._set_output(2, self.__Adders[6].get_output(0))
 
-        self.__Adders[6].set_input(0, self.__Adders[5].get_output(1))
-        self.__Adders[6].set_input(1, self.get_input(9))
-        self.__Adders[6].set_input(2, self.get_input(1))
-        self.__Adders[6].execute()
-        self._set_output(2, self.__Adders[6].get_output(0))
-
-        self.__Adders[7].set_input(0, self.__Adders[6].get_output(1))
-        self.__Adders[7].set_input(1, self.get_input(8))
-        self.__Adders[7].set_input(2, self.get_input(0))
-        self.__Adders[7].execute()
-        self._set_output(1, self.__Adders[7].get_output(0))
-        self._set_output(0, self.__Adders[7].get_output(1))
+        #self.__Adders[7].set_input(0, self.__Adders[6].get_output(1))
+        #self.__Adders[7].set_input(1, self.get_input(8))
+        #self.__Adders[7].set_input(2, self.get_input(0))
+        #self.__Adders[7].execute()
+        #self._set_output(1, self.__Adders[7].get_output(0))
+        #self._set_output(0, self.__Adders[7].get_output(1))
